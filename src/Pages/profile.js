@@ -2,8 +2,32 @@ import React, { Component } from 'react'
 import image from './user.png'
 import {Link} from 'react-router-dom'
 import '../App.css'
+import axios from 'axios'
 export default class profile extends Component {
+
+    state = {}
+
+    componentDidMount(){
+        const config = {
+            headers:{
+                Authorization:'Bearer '+ localStorage.getItem('token')
+            }
+        }
+
+        axios.get('user',config).then(
+            res=>{
+                console.log(res)
+                this.setState({
+                    user:res.data
+                })
+            },
+            err=>{
+                console.log(err)
+            }
+        )
+    }
     render() {
+       
         return (
             <div className="profile-container">
                 <h2 class="blue-text text-darken-4">User Profile</h2>
